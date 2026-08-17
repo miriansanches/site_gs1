@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Parallax
     applyParallax();
+
+    runScrollyEngine();
   }
 
   function updateNavbarTheme() {
@@ -381,5 +383,140 @@ document.addEventListener('DOMContentLoaded', () => {
   function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
   }
+
+// ============================================
+// CRM SCROLLYTELLING ENGINE
+// ============================================
+const SLIDE_DATA = [
+  { color: '#3B82F6', glow: 'rgba(59,130,246,0.18)', metric: 'Receita do dia',       status: 'Dashboard ativo' },
+  { color: '#F59E0B', glow: 'rgba(245,158,11,0.18)',  metric: 'Agendamentos do dia', status: 'Agenda ao vivo' },
+  { color: '#06B6D4', glow: 'rgba(6,182,212,0.18)',   metric: 'Clientes ativos',     status: 'CRM sincronizado' },
+];
+
+const scrollyWrapper = document.getElementById('crm-scrolly-wrapper');
+const crmNavSteps = document.querySelectorAll('.crm-step-btn');
+const crmProgressFill = document.getElementById('crm-nav-progress-fill');
+const narrativeSlides = document.querySelectorAll('.narrative-slide');
+const slideImgs = document.querySelectorAll('.slide-img');
+const deviceAmbientGlow = document.getElementById('device-ambient-glow');
+const dfbMetricText = document.getElementById('dfb-metric-text');
+const dfbStatusText = document.getElementById('dfb-status-text');
+
+let currentSlide = 0;
+let scrollyEnabled = window.innerWidth > 1024;
+
+function initScrollyEngine() {
+  if (window.innerWidth <= 1024) {
+    scrollyEnabled = false;
+    narrativeSlides.forEach((slide, i) => {
+      slide.style.position = 'relative';
+      slide.style.top = 'auto';
+      slide.style.opacity = '1';
+      slide.style.transform = 'none';
+      slide.style.display = i === 0 ? 'block' : 'none';
+    });
+    return;
+  }
+  scrollyEnabled = true;
+  activateSlide(0, false);
+}
+
+function runScrollyEngine() {
+  if (!scrollyEnabled || !scrollyWrapper || window.innerWidth <= 1024) return;
+
+  const wRect = scrollyWrapper.getBoundingClientRect();
+  const scrolledPast = -wRect.top;
+  const activeScrollHeight = scrollyWrapper.offsetHeight - window.innerHeight;
+
+  if (scrolledPast < 0 || scrolledPast > activeScrollHeight) return;
+
+  const progress = scrolledPast / activeScrollHeight;
+  const rawSlide = progress * 3;
+  const targetSlide = Math.min(Math.floor(rawSlide), 2);
+  const slideLocalProgress = rawSlide - Math.floor(rawSlide);
+
+  if (crmProgressFill) {
+    const fillPercent = (targetSlide / 2 + slideLocalProgress / 2) * 100;
+    crmProgressFill.style.height = `${Math.min(fillPercent, 100)}%`;
+  }
+
+  if (targetSlide !== currentSlide) {
+    activateSlide(targetSlide, true);
+  }
+}
+
+function activateSlide(index, animated) {
+  if (index === currentSlide && animated) return;
+
+  const direction = index > currentSlide ? 'forward' : 'backward';
+  currentSlide = index;
+
+  crmNavSteps.forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+
+  slideImgs.forEach((slide, i) => {
+    if (i === index) {
+      slide.classList.remove('exit-left', 'exit-right');
+      slide.classList.add('active');
+    } else if (slide.classList.contains('active')) {
+      slide.classList.remove('active');
+      slide.classList.add(direction === 'forward' ? 'exit-left' : 'exit-right');
+      setTimeout(() => slide.classList.remove('exit-left', 'exit-right'), 900);
+    } else {
+      slide.classList.remove('active', 'exit-left', 'exit-right');
+    }
+  });
+
+  narrativeSlides.forEach((ns, i) => {
+    if (i === index) {
+      ns.classList.remove('exit');
+      ns.classList.add('active');
+    } else if (ns.classList.contains('active')) {
+      ns.classList.remove('active');
+      ns.classList.add('exit');
+      setTimeout(() => ns.classList.remove('exit'), 700);
+    } else {
+      ns.classList.remove('active', 'exit');
+    }
+  });
+
+  const data = SLIDE_DATA[index];
+  if (deviceAmbientGlow) {
+    deviceAmbientGlow.style.background = `radial-gradient(circle, ${data.glow} 0%, transparent 70%)`;
+  }
+
+  const frame = document.querySelector('.device-frame');
+  if (frame) {
+    frame.style.boxShadow = `0 40px 100px rgba(0,0,0,0.7), 0 0 80px ${data.glow}, inset 0 1px 0 rgba(255,255,255,0.1)`;
+  }
+
+  if (dfbMetricText) dfbMetricText.textContent = data.metric;
+  if (dfbStatusText) dfbStatusText.textContent = data.status;
+}
+
+crmNavSteps.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    if (!scrollyWrapper || window.innerWidth <= 1024) {
+      activateSlide(index, true);
+      return;
+    }
+    const wTop = scrollyWrapper.getBoundingClientRect().top + window.scrollY;
+    const totalH = scrollyWrapper.offsetHeight - window.innerHeight;
+    const targetScroll = wTop + (index / 3) * totalH;
+    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  });
+});
+
+initScrollyEngine();
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth <= 1024) {
+    scrollyEnabled = false;
+  } else {
+    scrollyEnabled = true;
+    initScrollyEngine();
+  }
+});
 
 });

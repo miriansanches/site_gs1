@@ -150,50 +150,133 @@
         </div>
       </div>
 
-      <!-- Feature 1 — Dashboard -->
-      <div class="crm-feature">
-        <div class="crm-feature-image">
-          <div class="img-wrapper scroll-reveal scale-in" data-caption="Dashboard — Painel Geral">
-            <img src="Fotos/dashboard.png" alt="Dashboard do BeautyFlow" loading="lazy" />
-          </div>
-        </div>
-        <div class="crm-feature-text">
-          <span class="crm-feature-tag scroll-reveal">Principal</span>
-          <h3 class="scroll-reveal">Dashboard</h3>
-          <p class="scroll-reveal">O painel geral é o coração do BeautyFlow. Aqui a Beatriz enxerga de um só olhar a receita do dia, quantos atendimentos realizou, quantos clientes estão ativos e qual é o ticket médio.</p>
-          <p class="scroll-reveal">O fluxo de caixa semanal e os alertas inteligentes dão a ela a visão que nunca teve.</p>
-        </div>
-      </div>
+      <!-- SCROLLYTELLING STAGE — CRM EXPERIENCE -->
+      <div class="crm-scrolly-wrapper" id="crm-scrolly-wrapper">
 
-      <!-- Feature 2 — Agenda -->
-      <div class="crm-feature">
-        <div class="crm-feature-image">
-          <div class="img-wrapper scroll-reveal scale-in" data-caption="Agenda — Calendário de Agendamentos">
-            <img src="Fotos/agenda.png" alt="Agenda do BeautyFlow" loading="lazy" />
-          </div>
-        </div>
-        <div class="crm-feature-text">
-          <span class="crm-feature-tag scroll-reveal">Principal</span>
-          <h3 class="scroll-reveal">Agenda</h3>
-          <p class="scroll-reveal">Calendário semanal completo com agendamentos por horário. Visualização por dia, semana, mês ou ano, com status de cada atendimento.</p>
-          <p class="scroll-reveal">Sem mais agendas de papel — tudo organizado em um clique.</p>
-        </div>
-      </div>
+        <!-- STICKY STAGE -->
+        <div class="crm-stage" id="crm-stage">
 
-      <!-- Feature 3 — Clientes -->
-      <div class="crm-feature">
-        <div class="crm-feature-image">
-          <div class="img-wrapper scroll-reveal scale-in" data-caption="Clientes — Gestão de Clientes">
-            <img src="Fotos/clientes.png" alt="Clientes do BeautyFlow" loading="lazy" />
+          <!-- LEFT NAV PANEL -->
+          <div class="crm-stage-nav">
+            <div class="crm-nav-progress-bar">
+              <div class="crm-nav-progress-fill" id="crm-nav-progress-fill"></div>
+            </div>
+            <div class="crm-nav-steps" id="crm-nav-steps">
+              <button class="crm-step-btn active" data-step="0" aria-label="Dashboard">
+                <span class="step-dot"></span>
+                <span class="step-label">Dashboard</span>
+              </button>
+              <button class="crm-step-btn" data-step="1" aria-label="Agenda">
+                <span class="step-dot"></span>
+                <span class="step-label">Agenda</span>
+              </button>
+              <button class="crm-step-btn" data-step="2" aria-label="Clientes">
+                <span class="step-dot"></span>
+                <span class="step-label">Clientes</span>
+              </button>
+            </div>
           </div>
+
+          <!-- CENTER — DEVICE STAGE -->
+          <div class="crm-device-stage" id="crm-device-stage">
+            <div class="device-ambient-glow" id="device-ambient-glow"></div>
+            <div class="device-rig" id="device-rig">
+              <div class="device-frame">
+                <div class="device-notch"></div>
+                <div class="device-screen" id="device-screen">
+                  <!-- Slides -->
+                  <div class="slide-img active" id="slide-0">
+                    <img src="Fotos/dashboard.png" alt="Dashboard do BeautyFlow" />
+                    <div class="slide-overlay"></div>
+                  </div>
+                  <div class="slide-img" id="slide-1">
+                    <img src="Fotos/agenda.png" alt="Agenda do BeautyFlow" />
+                    <div class="slide-overlay"></div>
+                  </div>
+                  <div class="slide-img" id="slide-2">
+                    <img src="Fotos/clientes.png" alt="Clientes do BeautyFlow" />
+                    <div class="slide-overlay"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Floating metrics on device -->
+              <div class="device-float-badge dfb-top" id="dfb-metric">
+                <span class="dfb-dot"></span>
+                <span class="dfb-text" id="dfb-metric-text">Receita do dia</span>
+              </div>
+              <div class="device-float-badge dfb-bottom" id="dfb-status">
+                <span class="dfb-icon">✦</span>
+                <span class="dfb-text" id="dfb-status-text">Ao vivo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT — NARRATIVE PANEL -->
+          <div class="crm-narrative-panel" id="crm-narrative-panel">
+            <div class="narrative-content" id="narrative-content">
+
+              <!-- Slide 0: Dashboard -->
+              <div class="narrative-slide active" data-slide="0">
+                <span class="crm-feature-tag">Principal</span>
+                <h3 class="narrative-title">
+                  <span class="ntitle-big">Dashboard</span>
+                </h3>
+                <p class="narrative-lead">O painel geral é o <strong class="txt-blue">coração do BeautyFlow</strong>.</p>
+                <p class="narrative-desc">Aqui a Beatriz enxerga de um só olhar a receita do dia, quantos atendimentos realizou, quantos clientes estão ativos e qual é o ticket médio.</p>
+                <p class="narrative-desc">O fluxo de caixa semanal e os alertas inteligentes dão a ela a <strong class="txt-gold">visão que nunca teve</strong>.</p>
+                <div class="narrative-bullets">
+                  <div class="nb-item"><span class="nb-dot"></span>Receita em tempo real</div>
+                  <div class="nb-item"><span class="nb-dot"></span>Ticket médio automático</div>
+                  <div class="nb-item"><span class="nb-dot"></span>Alertas inteligentes</div>
+                </div>
+              </div>
+
+              <!-- Slide 1: Agenda -->
+              <div class="narrative-slide" data-slide="1">
+                <span class="crm-feature-tag tag-amber">Principal</span>
+                <h3 class="narrative-title">
+                  <span class="ntitle-big">Agenda</span>
+                </h3>
+                <p class="narrative-lead">Calendário semanal completo com <strong class="txt-amber">agendamentos por horário</strong>.</p>
+                <p class="narrative-desc">Visualização por dia, semana, mês ou ano, com status de cada atendimento.</p>
+                <p class="narrative-desc">Sem mais agendas de papel — tudo organizado em <strong class="txt-gold">um clique</strong>.</p>
+                <div class="narrative-bullets">
+                  <div class="nb-item"><span class="nb-dot nb-dot-amber"></span>Visão semanal e mensal</div>
+                  <div class="nb-item"><span class="nb-dot nb-dot-amber"></span>Status de atendimento</div>
+                  <div class="nb-item"><span class="nb-dot nb-dot-amber"></span>Sem papel, sem confusão</div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Clientes -->
+              <div class="narrative-slide" data-slide="2">
+                <span class="crm-feature-tag tag-cyan">Principal</span>
+                <h3 class="narrative-title">
+                  <span class="ntitle-big">Clientes</span>
+                </h3>
+                <p class="narrative-lead">Gestão completa com filtros por <strong class="txt-cyan">status e comportamento</strong>.</p>
+                <p class="narrative-desc">Frequentes, novos, inativos. Cada perfil mostra histórico de visitas, total gasto e serviço favorito.</p>
+                <p class="narrative-desc">Agora a Beatriz sabe exatamente <strong class="txt-gold">quem são seus clientes</strong> e como fidelizá-los.</p>
+                <div class="narrative-bullets">
+                  <div class="nb-item"><span class="nb-dot nb-dot-cyan"></span>Perfil completo de clientes</div>
+                  <div class="nb-item"><span class="nb-dot nb-dot-cyan"></span>Histórico de visitas</div>
+                  <div class="nb-item"><span class="nb-dot nb-dot-cyan"></span>Fidelização inteligente</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-        <div class="crm-feature-text">
-          <span class="crm-feature-tag scroll-reveal">Principal</span>
-          <h3 class="scroll-reveal">Clientes</h3>
-          <p class="scroll-reveal">Gestão completa de clientes com filtros por status: frequentes, novos, inativos. Cada perfil mostra histórico de visitas, total gasto e serviço favorito.</p>
-          <p class="scroll-reveal">Agora a Beatriz sabe exatamente quem são seus clientes e como fidelizá-los.</p>
-        </div>
+        <!-- END STAGE -->
+
+        <!-- SCROLL ZONES — 3 zones, one per slide -->
+        <div class="crm-scroll-zone" data-slide-zone="0"></div>
+        <div class="crm-scroll-zone" data-slide-zone="1"></div>
+        <div class="crm-scroll-zone" data-slide-zone="2"></div>
+
       </div>
+      <!-- END SCROLLY WRAPPER -->
+
 
       <!-- Remaining CRM screens grid -->
       <div class="crm-grid-section">
@@ -210,7 +293,7 @@
               <div class="crm-mini-card-body"><h4>Metas</h4><p>Defina metas de faturamento e acompanhe o progresso em tempo real.</p></div>
             </div>
             <div class="crm-mini-card scroll-reveal delay-3" data-caption="Estoque — Gestão de Estoque">
-              <div class="crm-mini-card-image"><img src="Fotos/estoque.png" alt="Estoque" loading="lazy" /></div>
+              <div class="crm-mini-card-image"><img src="Fotos/estoque.jpeg" alt="Estoque" loading="lazy" /></div>
               <div class="crm-mini-card-body"><h4>Estoque</h4><p>Gestão de produtos com leitura de QR Code e código de barras.</p></div>
             </div>
             <div class="crm-mini-card scroll-reveal delay-1" data-caption="Financeiro — Visão Financeira">
@@ -231,16 +314,21 @@
 
       <!-- Feature — Cogulator -->
       <div class="crm-feature" style="margin-top: 4rem;">
-        <div class="crm-feature-image">
-          <div class="img-wrapper scroll-reveal scale-in" data-caption="Cogulator — Teste de Usabilidade">
-            <img src="Fotos/cogulator.png" alt="Teste Cogulator" loading="lazy" />
+        <div class="crm-feature-image" style="display: flex; flex-direction: column; gap: 2rem;">
+          <div class="img-wrapper scroll-reveal scale-in">
+            <img src="Fotos/cogulator.png" alt="Nosso CRM" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+            <p style="font-size: 0.85rem; color: #a0aec0; text-align: center; margin-top: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Nosso CRM (BeautyFlow)</p>
+          </div>
+          <div class="img-wrapper scroll-reveal scale-in delay-1">
+            <img src="Fotos/crm-comparacao.png" alt="CRM Normal" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+            <p style="font-size: 0.85rem; color: #a0aec0; text-align: center; margin-top: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">CRM Normal</p>
           </div>
         </div>
         <div class="crm-feature-text">
           <span class="crm-feature-tag scroll-reveal">Usabilidade</span>
-          <h3 class="scroll-reveal">Facilidade de Uso Comprovada</h3>
-          <p class="scroll-reveal">Realizamos um teste de usabilidade utilizando o modelo cognitivo <strong>Cogulator</strong>. Esse teste mostra que o sistema foi pensado do zero para ser extremamente fácil, eficiente e intuitivo de ser utilizado.</p>
-          <p class="scroll-reveal">O foco foi garantir que a operação do sistema não adicione atrito à rotina corrida do salão, permitindo que a Beatriz faça agendamentos e navegue pelo sistema no menor tempo possível.</p>
+          <h3 class="scroll-reveal">CRM Normal vs. BeautyFlow</h3>
+          <p class="scroll-reveal">Criamos um sistema focado em reduzir a carga cognitiva da nossa persona. Em comparação a um CRM convencional, a nossa solução elimina etapas desnecessárias, exibindo apenas as informações cruciais para a operação diária.</p>
+          <p class="scroll-reveal">Comprovamos isso através de testes com o modelo <strong>Cogulator</strong>. A análise atesta que o BeautyFlow foi projetado para ser significativamente mais rápido e intuitivo, garantindo que a rotina agitada do salão não sofra com atritos na hora de agendar serviços.</p>
         </div>
       </div>
     </section>
@@ -253,31 +341,73 @@
           <h2 class="section-title scroll-reveal" style="color: var(--text-primary);">QR Codes <span class="highlight-blue">GS1</span> inteligentes</h2>
           <p class="section-subtitle light scroll-reveal" style="margin-left:auto; margin-right:auto;">Usando o padrão GS1, criamos QR Codes que vão além da identificação de produtos — conectando o salão da Beatriz a uma experiência digital completa para seus clientes.</p>
         </div>
-        <div class="qr-grid">
-          <div class="qr-card scroll-reveal delay-1">
-            <div class="qr-icon">📋</div>
-            <h3>Check-in de Clientes</h3>
-            <p>O cliente escaneia o QR Code ao chegar no salão e registra sua presença automaticamente no sistema, atualizando a agenda em tempo real.</p>
-            <div class="qr-gs1-badge"><span>⬡</span> Padrão GS1</div>
+        <div class="gs1-features-wrapper" style="padding-top: 2rem;">
+          
+          <!-- Feature 1: Check-in -->
+          <div class="crm-feature" style="margin-top: 4rem;">
+            <div class="crm-feature-image">
+              <div class="img-wrapper scroll-reveal scale-in">
+                <img src="Fotos/foto_checkin.jpg" alt="Check-in de Clientes" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+              </div>
+            </div>
+            <div class="crm-feature-text">
+              <span class="crm-feature-tag scroll-reveal" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;">📋 Padrão GS1</span>
+              <h3 class="scroll-reveal" style="color: var(--text-primary);">Check-in de Clientes</h3>
+              <p class="scroll-reveal">O cliente escaneia o QR Code ao chegar no salão e registra sua presença automaticamente no sistema, atualizando a agenda da Beatriz em tempo real.</p>
+              <p class="scroll-reveal">Isso elimina a necessidade de atendimento na recepção apenas para confirmar a chegada, otimizando o tempo de todos.</p>
+            </div>
           </div>
-          <div class="qr-card scroll-reveal delay-2">
-            <div class="qr-icon">⭐</div>
-            <h3>Avaliação de Serviço</h3>
-            <p>Após o atendimento, o cliente escaneia o QR Code para avaliar a experiência. As avaliações alimentam os relatórios de qualidade do salão.</p>
-            <div class="qr-gs1-badge"><span>⬡</span> Padrão GS1</div>
+
+          <!-- Feature 2: Avaliação -->
+          <div class="crm-feature" style="margin-top: 6rem;">
+            <div class="crm-feature-image">
+              <div class="img-wrapper scroll-reveal scale-in">
+                <img src="Fotos/foto_avaliacao.jpeg" alt="Avaliação de Serviço" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+              </div>
+            </div>
+            <div class="crm-feature-text">
+              <span class="crm-feature-tag scroll-reveal" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;">⭐ Padrão GS1</span>
+              <h3 class="scroll-reveal" style="color: var(--text-primary);">Avaliação de Serviço</h3>
+              <p class="scroll-reveal">Após o atendimento, o cliente escaneia o QR Code para avaliar a experiência. As avaliações alimentam os relatórios de qualidade do salão instantaneamente.</p>
+              <p class="scroll-reveal">Essa coleta de feedback sem atrito garante que o salão mantenha seu padrão de excelência e fidelize mais clientes.</p>
+            </div>
           </div>
-          <div class="qr-card scroll-reveal delay-3">
-            <div class="qr-icon">💅</div>
-            <h3>Cardápio de Serviços</h3>
-            <p>QR Code que dá acesso instantâneo ao catálogo completo de serviços com preços, duração e descrição de cada tratamento.</p>
-            <div class="qr-gs1-badge"><span>⬡</span> Padrão GS1</div>
+
+          <!-- Feature 3: Agendamento -->
+          <div class="crm-feature" style="margin-top: 6rem;">
+            <div class="crm-feature-image">
+              <div class="img-wrapper scroll-reveal scale-in">
+                <img src="Fotos/foto_studio.jpg" alt="Agendamento" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+              </div>
+            </div>
+            <div class="crm-feature-text">
+              <span class="crm-feature-tag scroll-reveal" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;">📅 Padrão GS1</span>
+              <h3 class="scroll-reveal" style="color: var(--text-primary);">Agendamento</h3>
+              <p class="scroll-reveal">Link direto para agendar um novo horário no salão. O cliente escolhe o serviço, o dia e a hora — tudo de forma autônoma pelo celular.</p>
+              <p class="scroll-reveal">Esse QR Code pode ser divulgado nas redes sociais ou impresso em cartões de visita, facilitando a atração de novos agendamentos.</p>
+            </div>
           </div>
-          <div class="qr-card scroll-reveal delay-4">
-            <div class="qr-icon">📅</div>
-            <h3>Agendamento Rápido</h3>
-            <p>Link direto para agendar um novo horário no salão da Beatriz. O cliente escolhe o serviço, o dia e a hora — tudo pelo celular.</p>
-            <div class="qr-gs1-badge"><span>⬡</span> Padrão GS1</div>
+
+          <!-- Feature 4: Estoque -->
+          <div class="crm-feature" style="margin-top: 6rem; margin-bottom: 4rem;">
+            <div class="crm-feature-image" style="display: flex; flex-direction: column; gap: 2rem;">
+              <div class="img-wrapper scroll-reveal scale-in">
+                <img src="Fotos/foto_codigo.jpeg" alt="Código de Barras - Produto" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+                <p style="font-size: 0.85rem; color: #a0aec0; text-align: center; margin-top: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Produtos e Materiais (Baixa Automática)</p>
+              </div>
+              <div class="img-wrapper scroll-reveal scale-in delay-1">
+                <img src="Fotos/foto_nota.jpg" alt="Nota Fiscal" loading="lazy" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+                <p style="font-size: 0.85rem; color: #a0aec0; text-align: center; margin-top: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Notas Fiscais (Entrada de Estoque)</p>
+              </div>
+            </div>
+            <div class="crm-feature-text">
+              <span class="crm-feature-tag scroll-reveal" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff;">📦 Padrão GS1</span>
+              <h3 class="scroll-reveal" style="color: var(--text-primary);">Gestão de Estoque Inteligente</h3>
+              <p class="scroll-reveal"><strong>Código de Barras:</strong> Agilidade no dia a dia. Ao utilizar um produto no salão, basta bipar o código na embalagem para dar baixa automática no sistema, mantendo o inventário sempre real e atualizado.</p>
+              <p class="scroll-reveal" style="margin-top: 1rem;"><strong>QR Code de Nota Fiscal:</strong> Chegou mercadoria nova? Esqueça a digitação manual! Escaneie o QR Code da nota fiscal e o BeautyFlow fará a entrada automática de todos os produtos no estoque, otimizando o seu tempo e o controle financeiro do salão.</p>
+            </div>
           </div>
+
         </div>
       </div>
     </section>

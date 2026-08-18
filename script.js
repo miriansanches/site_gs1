@@ -80,8 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Parallax
     applyParallax();
-
-    runScrollyEngine();
   }
 
   function updateNavbarTheme() {
@@ -219,30 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = `translateY(${(1 - de) * 50}px) scale(${0.92 + de * 0.08})`;
     });
 
-    // 4) CRM feature text
-    document.querySelectorAll('.crm-feature').forEach((feature, i) => {
-      const text = feature.querySelector('.crm-feature-text');
-      if (!text) return;
-      const rect = text.getBoundingClientRect();
-      const progress = clamp((windowHeight - rect.top) / (windowHeight * 0.55), 0, 1);
-      const eased = easeOutCubic(progress);
-      const dir = i % 2 === 1 ? -1 : 1;
-      text.style.opacity = eased;
-      text.style.transform = `translateX(${(1 - eased) * 60 * dir}px)`;
-    });
 
-    // 5) CRM mini grid cards
-    document.querySelectorAll('.crm-mini-card').forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const progress = clamp((windowHeight - rect.top) / (windowHeight * 0.5), 0, 1);
-      const stagger = (index % 3) * 0.06;
-      const sp = clamp((progress - stagger) / (1 - stagger), 0, 1);
-      const se = easeOutCubic(sp);
-      card.style.opacity = se;
-      card.style.transform = `translateY(${(1 - se) * 60}px) scale(${0.9 + se * 0.1})`;
-    });
-
-    // 6) QR cards
     document.querySelectorAll('.qr-card').forEach((card, index) => {
       const rect = card.getBoundingClientRect();
       const progress = clamp((windowHeight - rect.top) / (windowHeight * 0.55), 0, 1);
@@ -288,16 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyParallax() {
     const windowHeight = window.innerHeight;
 
-    document.querySelectorAll('.crm-feature-image .img-wrapper').forEach(wrapper => {
-      const rect = wrapper.getBoundingClientRect();
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-        const yOffset = (progress - 0.5) * 25;
-        const scale = wrapper.matches(':hover') ? 1.02 : 1;
-        wrapper.style.transform = `translateY(${yOffset}px) scale(${scale})`;
-      }
-    });
-
     document.querySelectorAll('.mission-card-icon').forEach(icon => {
       const rect = icon.getBoundingClientRect();
       if (rect.top < windowHeight && rect.bottom > 0) {
@@ -318,17 +283,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================
   // LIGHTBOX
   // ============================================
-  document.querySelectorAll('.crm-feature-image .img-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('click', () => {
-      const img = wrapper.querySelector('img');
-      openLightbox(img.src, img.alt, wrapper.getAttribute('data-caption') || '');
-    });
-  });
-
-  document.querySelectorAll('.crm-mini-card').forEach(card => {
+  document.querySelectorAll('.lightbox-trigger').forEach(card => {
     card.addEventListener('click', () => {
-      const img = card.querySelector('img');
-      openLightbox(img.src, img.alt, card.getAttribute('data-caption') || '');
+      const img = card.tagName.toUpperCase() === 'IMG' ? card : card.querySelector('img');
+      if (img) {
+        openLightbox(img.src, img.alt, card.getAttribute('data-caption') || '');
+      }
     });
   });
 
@@ -384,139 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return 1 - Math.pow(1 - t, 3);
   }
 
-// ============================================
-// CRM SCROLLYTELLING ENGINE
-// ============================================
-const SLIDE_DATA = [
-  { color: '#3B82F6', glow: 'rgba(59,130,246,0.18)', metric: 'Receita do dia',       status: 'Dashboard ativo' },
-  { color: '#F59E0B', glow: 'rgba(245,158,11,0.18)',  metric: 'Agendamentos do dia', status: 'Agenda ao vivo' },
-  { color: '#06B6D4', glow: 'rgba(6,182,212,0.18)',   metric: 'Clientes ativos',     status: 'CRM sincronizado' },
-];
 
-const scrollyWrapper = document.getElementById('crm-scrolly-wrapper');
-const crmNavSteps = document.querySelectorAll('.crm-step-btn');
-const crmProgressFill = document.getElementById('crm-nav-progress-fill');
-const narrativeSlides = document.querySelectorAll('.narrative-slide');
-const slideImgs = document.querySelectorAll('.slide-img');
-const deviceAmbientGlow = document.getElementById('device-ambient-glow');
-const dfbMetricText = document.getElementById('dfb-metric-text');
-const dfbStatusText = document.getElementById('dfb-status-text');
-
-let currentSlide = 0;
-let scrollyEnabled = window.innerWidth > 1024;
-
-function initScrollyEngine() {
-  if (window.innerWidth <= 1024) {
-    scrollyEnabled = false;
-    narrativeSlides.forEach((slide, i) => {
-      slide.style.position = 'relative';
-      slide.style.top = 'auto';
-      slide.style.opacity = '1';
-      slide.style.transform = 'none';
-      slide.style.display = i === 0 ? 'block' : 'none';
-    });
-    return;
-  }
-  scrollyEnabled = true;
-  activateSlide(0, false);
-}
-
-function runScrollyEngine() {
-  if (!scrollyEnabled || !scrollyWrapper || window.innerWidth <= 1024) return;
-
-  const wRect = scrollyWrapper.getBoundingClientRect();
-  const scrolledPast = -wRect.top;
-  const activeScrollHeight = scrollyWrapper.offsetHeight - window.innerHeight;
-
-  if (scrolledPast < 0 || scrolledPast > activeScrollHeight) return;
-
-  const progress = scrolledPast / activeScrollHeight;
-  const rawSlide = progress * 3;
-  const targetSlide = Math.min(Math.floor(rawSlide), 2);
-  const slideLocalProgress = rawSlide - Math.floor(rawSlide);
-
-  if (crmProgressFill) {
-    const fillPercent = (targetSlide / 2 + slideLocalProgress / 2) * 100;
-    crmProgressFill.style.height = `${Math.min(fillPercent, 100)}%`;
-  }
-
-  if (targetSlide !== currentSlide) {
-    activateSlide(targetSlide, true);
-  }
-}
-
-function activateSlide(index, animated) {
-  if (index === currentSlide && animated) return;
-
-  const direction = index > currentSlide ? 'forward' : 'backward';
-  currentSlide = index;
-
-  crmNavSteps.forEach((btn, i) => {
-    btn.classList.toggle('active', i === index);
-  });
-
-  slideImgs.forEach((slide, i) => {
-    if (i === index) {
-      slide.classList.remove('exit-left', 'exit-right');
-      slide.classList.add('active');
-    } else if (slide.classList.contains('active')) {
-      slide.classList.remove('active');
-      slide.classList.add(direction === 'forward' ? 'exit-left' : 'exit-right');
-      setTimeout(() => slide.classList.remove('exit-left', 'exit-right'), 900);
-    } else {
-      slide.classList.remove('active', 'exit-left', 'exit-right');
-    }
-  });
-
-  narrativeSlides.forEach((ns, i) => {
-    if (i === index) {
-      ns.classList.remove('exit');
-      ns.classList.add('active');
-    } else if (ns.classList.contains('active')) {
-      ns.classList.remove('active');
-      ns.classList.add('exit');
-      setTimeout(() => ns.classList.remove('exit'), 700);
-    } else {
-      ns.classList.remove('active', 'exit');
-    }
-  });
-
-  const data = SLIDE_DATA[index];
-  if (deviceAmbientGlow) {
-    deviceAmbientGlow.style.background = `radial-gradient(circle, ${data.glow} 0%, transparent 70%)`;
-  }
-
-  const frame = document.querySelector('.device-frame');
-  if (frame) {
-    frame.style.boxShadow = `0 40px 100px rgba(0,0,0,0.7), 0 0 80px ${data.glow}, inset 0 1px 0 rgba(255,255,255,0.1)`;
-  }
-
-  if (dfbMetricText) dfbMetricText.textContent = data.metric;
-  if (dfbStatusText) dfbStatusText.textContent = data.status;
-}
-
-crmNavSteps.forEach((btn, index) => {
-  btn.addEventListener('click', () => {
-    if (!scrollyWrapper || window.innerWidth <= 1024) {
-      activateSlide(index, true);
-      return;
-    }
-    const wTop = scrollyWrapper.getBoundingClientRect().top + window.scrollY;
-    const totalH = scrollyWrapper.offsetHeight - window.innerHeight;
-    const targetScroll = wTop + (index / 3) * totalH;
-    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-  });
-});
-
-initScrollyEngine();
-
-window.addEventListener('resize', () => {
-  if (window.innerWidth <= 1024) {
-    scrollyEnabled = false;
-  } else {
-    scrollyEnabled = true;
-    initScrollyEngine();
-  }
-});
 
 });
